@@ -92,12 +92,14 @@ PPI::Statement::Include
 =cut
 
 sub supported_parameters {
-    return ({
-        name           => 'categories',
-        description    => 'Warning categories that may not be switched off.',
-        default_string => 'redefine',
-        behavior       => 'string list',
-    });
+    return (
+        {
+            name           => 'categories',
+            description    => 'Warning categories that may not be switched off.',
+            default_string => 'redefine',
+            behavior       => 'string list',
+        }
+    );
 }
 
 sub default_severity { return $SEVERITY_HIGH }

@@ -23,10 +23,10 @@ sub violations {
 }
 
 my %prohibited = (
-    'quoted'          => q{no warnings 'redefine';},
-    'qw list'         => q{no warnings qw{redefine once};},
-    'double quoted'   => q{no warnings "redefine";},
-    'bare no warnings'=> q{no warnings;},
+    'quoted'           => q{no warnings 'redefine';},
+    'qw list'          => q{no warnings qw{redefine once};},
+    'double quoted'    => q{no warnings "redefine";},
+    'bare no warnings' => q{no warnings;},
 );
 
 foreach my $case ( sort keys %prohibited ) {
@@ -34,11 +34,11 @@ foreach my $case ( sort keys %prohibited ) {
 }
 
 my %allowed = (
-    'another category'  => q{no warnings 'once';},
-    'several others'    => q{no warnings qw{uninitialized numeric};},
-    'use warnings'      => q{use warnings 'redefine';},
-    'no strict'         => q{no strict 'refs';},
-    'Test::MockModule'  => q{my $m = Test::MockModule->new('X'); $m->redefine( y => sub { 1 } );},
+    'another category' => q{no warnings 'once';},
+    'several others'   => q{no warnings qw{uninitialized numeric};},
+    'use warnings'     => q{use warnings 'redefine';},
+    'no strict'        => q{no strict 'refs';},
+    'Test::MockModule' => q{my $m = Test::MockModule->new('X'); $m->redefine( y => sub { 1 } );},
 );
 
 foreach my $case ( sort keys %allowed ) {
@@ -55,10 +55,14 @@ is( violations(q{no warnings 'redefine';  ## no critic (ProhibitNoWarningsRedefi
         -severity        => 1,
     );
 
-    is( scalar $configured->critique( \"use strict;\nno warnings 'prototype';\n" ),
-        1, 'a configured category is a violation' );
-    is( scalar $configured->critique( \"use strict;\nno warnings 'redefine';\n" ),
-        0, 'and one left out of the list is not' );
+    is(
+        scalar $configured->critique( \"use strict;\nno warnings 'prototype';\n" ),
+        1, 'a configured category is a violation'
+    );
+    is(
+        scalar $configured->critique( \"use strict;\nno warnings 'redefine';\n" ),
+        0, 'and one left out of the list is not'
+    );
 }
 
 done_testing();
