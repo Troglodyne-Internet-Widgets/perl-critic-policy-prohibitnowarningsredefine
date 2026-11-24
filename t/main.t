@@ -1,5 +1,5 @@
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 
 use re '/aa';
 
@@ -8,7 +8,6 @@ use 5.014;
 use Test::More;
 
 use Perl::Critic;
-use Perl::Critic::Policy::ProhibitNoWarningsRedefine;
 
 # -profile => q{} because Perl::Critic otherwise walks up from cwd looking for
 # a .perlcriticrc, finds this dist's own, and runs every policy in it against
@@ -66,3 +65,5 @@ is( violations(q{no warnings 'redefine';  ## no critic (ProhibitNoWarningsRedefi
 }
 
 done_testing();
+
+1;

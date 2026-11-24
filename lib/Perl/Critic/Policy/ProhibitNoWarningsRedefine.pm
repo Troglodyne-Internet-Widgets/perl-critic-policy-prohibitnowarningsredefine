@@ -3,9 +3,11 @@ package Perl::Critic::Policy::ProhibitNoWarningsRedefine;
 # ABSTRACT: Mock with Test::MockModule, don't clobber the symbol table by hand.
 
 use strict;
-use warnings;
+use warnings FATAL => 'all';
 
 use 5.014;
+
+no autovivification;
 
 use re '/aa';
 
@@ -148,7 +150,7 @@ sub _named_categories {
         }
     }
 
-    return grep { defined $_ && length $_ } @names;
+    return grep { length( $_ // q{} ) > 0 } @names;
 }
 
 1;
